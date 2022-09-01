@@ -6,7 +6,7 @@ from pelican.readers import BaseReader
 from . import bibtex
 
 # Create a new reader class, inheriting from the pelican.reader.BaseReader
-class NewReader(BaseReader):
+class BibTeXReader(BaseReader):
     enabled = True  # Yeah, you probably want that :-)
 
     # The list of file extensions you want this reader to match with.
@@ -18,20 +18,20 @@ class NewReader(BaseReader):
     # some content and the associated metadata.
     def read(self, filename):
         metadata = {'title': 'Publications',
-                    'template': 'Publications',
+                    'template': 'publications',
                     'date': str(dt.date.today())}
 
         parsed = {}
         for key, value in metadata.items():
             parsed[key] = self.process_metadata(key, value)
 
-        with open(filename) as raw_file:
-            bibstring = bibtex.get_decoded_string_from_file(filename)
-            metadata["elements"] = bibtex.get_bibitems(bibstring)
+        with open(filename, 'rb') as raw_file:
+            bibstring = bibtex.get_decoded_string_from_file(raw_file)
+            parsed["elements"] = bibtex.get_bibitems(bibstring).entries
         return "Some content", parsed
 
 def add_reader(readers):
-    readers.reader_classes['bib'] = NewReader
+    readers.reader_classes['bib'] = BibTeXReader
 
 # This is how pelican works.
 def register():
