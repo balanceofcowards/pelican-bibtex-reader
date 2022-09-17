@@ -1,4 +1,5 @@
 import datetime as dt
+import os
 
 from pelican import signals
 from pelican.readers import BaseReader
@@ -17,17 +18,18 @@ class BibTeXReader(BaseReader):
     # You need to have a read method, which takes a filename and returns
     # some content and the associated metadata.
     def read(self, filename):
-        metadata = {'title': 'Publications',
+        metadata = {'title': os.path.basename(filename)[:-4],
                     'template': 'publications',
                     'date': str(dt.date.today())}
 
         parsed = {}
-        for key, value in metadata.items():
-            parsed[key] = self.process_metadata(key, value)
 
         with open(filename, 'rb') as raw_file:
             bibstring = bibtex.get_decoded_string_from_file(raw_file)
-            parsed["elements"] = bibtex.get_bibitems(bibstring).entries
+            metadata['elements'] = bibtex.get_bibitems(bibstring).entries
+
+        for key, value in metadata.items():
+            parsed[key] = self.process_metadata(key, value)
         return "Some content", parsed
 
 def add_reader(readers):
