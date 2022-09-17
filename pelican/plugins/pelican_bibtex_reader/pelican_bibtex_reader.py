@@ -22,15 +22,26 @@ class BibTeXReader(BaseReader):
                     'template': 'publications',
                     'date': str(dt.date.today())}
 
-        parsed = {}
-
         with open(filename, 'rb') as raw_file:
             bibstring = bibtex.get_decoded_string_from_file(raw_file)
             metadata['elements'] = bibtex.get_bibitems(bibstring).entries
 
+        metadata.update(get_keyvalue_pairs(filename))
+
+        parsed = {}
         for key, value in metadata.items():
             parsed[key] = self.process_metadata(key, value)
         return "Some content", parsed
+
+def get_keyvalue_pairs(filename):
+    result = {}
+    with open(filename) as bibfile:
+        for line in bibfile:
+            if line[0] != '%': break
+            if not ':' in line: continue
+            key, value = [e.strip() for e in line[1:].split(':', 1)]
+            result[key] = value
+    return result
 
 def add_reader(readers):
     readers.reader_classes['bib'] = BibTeXReader
