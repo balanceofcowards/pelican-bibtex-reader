@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pelican-bibtex-reader"
-version = "0.0.0"
+version = "0.1.0"
 description = "A Pelican reader to process BibTeX files"
 authors = ["Andreas Fischer <_@ndreas.de>"]
 license = "AGPL-3.0"
