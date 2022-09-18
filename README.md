@@ -17,7 +17,32 @@ This plugin can be installed via:
 Usage
 -----
 
-<<Add plugin details here>>
+This plugin uses [python-bibtexparser](https://github.com/sciunto-org/python-bibtexparser) to parse properly formatted BibTeX files for use in
+[Pelican](https://getpelican.com/). Just put a BibTeX file
+with ending `.bib` anywhere in your content directory.
+
+The content provided by this plugin consists of only a
+crude HTML rendering of the key-value pairs of each
+entry. However, the full bibtex database is available
+as Python object in the metadata of the page (key: `bibtexdatabase`).
+Using an appropriate template, nice lists of literature
+can be rendered, easily. Check out [the literature list on my homepage](https://andreas.fischer-family.online/pages/publications.html)
+for an example.
+
+Metadata needed for Pelican 
+(such as the title, the date, or the template to be used)
+can be added at the top of the `.bib`-file, using the following syntax:
+
+```
+% Title: Some title
+% Date: 01.02.2023
+% ...
+% Feel free to write anything else; only
+% key: value
+% pairs are parsed. All other comments are ignored.
+
+@MISC{...}
+```
 
 Contributing
 ------------
