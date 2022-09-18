@@ -1,7 +1,6 @@
 Pelican BibTeX Reader: A Plugin for Pelican
 ====================================================
 
-[![Build Status](https://img.shields.io/github/workflow/status/pelican-plugins/pelican-bibtex-reader/build)](https://github.com/balanceofcowards/pelican-bibtex-reader/actions)
 [![PyPI Version](https://img.shields.io/pypi/v/pelican-bibtex-reader)](https://pypi.org/project/pelican-bibtex-reader/)
 ![License](https://img.shields.io/pypi/l/pelican-bibtex-reader?color=blue)
 
